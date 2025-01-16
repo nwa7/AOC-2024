@@ -3,5 +3,5 @@
 #include <string>
 #include <vector>
 
-int getColumns(const std::string &path, std::vector<std::string> &c1,
-               std::vector<std::string> &c2);
+int getColumns(const std::string &path, std::vector<int> &c1,
+               std::vector<int> &c2);
