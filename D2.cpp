@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+bool isSafe(std::vector<int> line, bool dampener_unused, bool is_increasing);
+
 int main() {
   std::vector<std::vector<int>> lines;
   std::string path = "D2_input.txt"; // File path
@@ -11,26 +13,31 @@ int main() {
   int sum = 0;
 
   for (int i = 0; i < lines.size(); i++) {
-    bool is_safe = true;
+    bool dampener_unused = true;
     bool is_increasing = lines[i][0] < lines[i][1];
 
-    for (int j = 1; j < lines[i].size(); j++) {
-      int diff = std::abs(lines[i][j] - lines[i][j - 1]);
-      if (diff < 1 || diff > 3) {
-        is_safe = false;
-        break;
-      }
-      if ((is_increasing && lines[i][j] < lines[i][j - 1]) ||
-          (!is_increasing && lines[i][j] > lines[i][j - 1])) {
-        is_safe = false;
-        break;
-      }
-    }
-    if (is_safe) {
+    if (isSafe(lines[i], dampener_unused, is_increasing)) {
       sum++;
     }
   }
   std::cout << sum << std::endl;
 
   return 0;
+}
+
+bool isSafe(std::vector<int> line, bool dampener_unused, bool is_increasing) {
+  bool is_safe = true;
+
+  for (int j = 1; j < line.size(); j++) {
+    int diff = std::abs(line[j] - line[j - 1]);
+    if (diff < 1 || diff > 3) {
+      is_safe = false;
+      break;
+    }
+    if ((is_increasing && line[j] < line[j - 1]) ||
+        (!is_increasing && line[j] > line[j - 1])) {
+      is_safe = false;
+      break;
+    }
+  }
 }
