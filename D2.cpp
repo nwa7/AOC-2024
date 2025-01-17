@@ -40,4 +40,5 @@ bool isSafe(std::vector<int> line, bool dampener_unused, bool is_increasing) {
       break;
     }
   }
+  return (is_safe);
 }
