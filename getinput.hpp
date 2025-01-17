@@ -5,3 +5,5 @@
 
 int getColumns(const std::string &path, std::vector<int> &c1,
                std::vector<int> &c2);
+
+int getLines(const std::string &path, std::vector<std::vector<int>> &lines);
