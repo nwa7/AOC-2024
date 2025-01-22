@@ -26,19 +26,41 @@ int main() {
 }
 
 bool isSafe(std::vector<int> line, bool dampener_unused, bool is_increasing) {
-  bool is_safe = true;
-
   for (int j = 1; j < line.size(); j++) {
     int diff = std::abs(line[j] - line[j - 1]);
     if (diff < 1 || diff > 3) {
-      is_safe = false;
+      if (dampener_unused) {
+        std::vector<int> tolerance;
+        for (int k = 1; k < line.size(); k++) {
+          if (k != j) {
+            tolerance.push_back(k);
+          }
+        }
+
+        dampener_unused = false;
+        return (isSafe(tolerance, dampener_unused, is_increasing));
+      } else {
+        return false;
+      };
       break;
     }
     if ((is_increasing && line[j] < line[j - 1]) ||
         (!is_increasing && line[j] > line[j - 1])) {
-      is_safe = false;
+      if (dampener_unused) {
+        std::vector<int> tolerance;
+        for (int k = 1; k < line.size(); k++) {
+          if (k != j) {
+            tolerance.push_back(k);
+          }
+        }
+
+        dampener_unused = false;
+        return (isSafe(tolerance, dampener_unused, is_increasing));
+      } else {
+        return false;
+      };
       break;
     }
   }
-  return (is_safe);
+  return true;
 }
