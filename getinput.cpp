@@ -55,3 +55,18 @@ int getLines(const std::string &path, std::vector<std::vector<int>> &lines) {
 
   return 0;
 }
+
+int getString(const std::string &path, std::string &lines) {
+  std::ifstream input(path);
+  if (input.is_open()) {
+
+    std::stringstream buffer;
+    buffer << input.rdbuf();
+    lines = buffer.str();
+    input.close();
+  } else {
+    std::cout << "Unable to open file";
+  }
+
+  return 0;
+}
