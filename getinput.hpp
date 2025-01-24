@@ -8,4 +8,7 @@ int getColumns(const std::string &path, std::vector<int> &c1,
 
 int getLines(const std::string &path, std::vector<std::vector<int>> &lines);
 
+int getStringLines(const std::string &path,
+                   std::vector<std::vector<std::string>> &lines);
+
 int getString(const std::string &path, std::string &lines);
