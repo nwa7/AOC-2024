@@ -11,18 +11,26 @@ int main() {
   getString(path, lines);
 
   int sum = 0;
-  std::regex expr("mul\\(([\\d]*),([\\d]*)\\)");
+  bool enabled = true;
+
+  std::regex expr("(do\\(\\)|don't\\(\\)|mul\\(([\\d]*),([\\d]*)\\))");
   auto rend = std::sregex_iterator();
 
   // std::regex_search(input, matches, expr);
   std::sregex_iterator matches(lines.begin(), lines.end(), expr);
   while (matches != rend) {
-    std::smatch a = *matches;
+    std::smatch match = *matches;
     // std::cout << a[1] << a[2] << std::endl;
-
-    sum += stoi(a[1]) * stoi(a[2]);
+    if (match[0] == "do()") {
+      enabled = true;
+    } else if (match[0] == "don't()") {
+      enabled = false;
+    } else if (enabled && match.size() > 2) {
+      int num1 = std::stoi(match[2]);
+      int num2 = std::stoi(match[3]);
+      sum += num1 * num2;
+    }
     matches++;
-    std::cout << std::endl;
   }
   std::cout << sum << std::endl;
   return 0;
