@@ -95,3 +95,39 @@ int getString(const std::string &path, std::string &lines) {
 
   return 0;
 }
+
+// D5
+
+int getPrintingInstruction(const std::string &path,
+                           std::vector<std::vector<int>> &rules,
+                           std::vector<std::vector<int>> &updates) {
+  std::ifstream input(path);
+  std::string line;
+
+  if (input.is_open()) {
+    // Reading each line from the file
+    while (std::getline(input, line)) {
+      std::stringstream ss(line);
+      std::string first, second;
+
+      if (std::getline(ss, first, '|') && std::getline(ss, second)) {
+        rules.push_back({std::stoi(first), std::stoi(second)});
+      } else {
+        std::vector<int> current_line;
+        std::stringstream ss_update(line);
+        std::string num_str;
+
+        while (std::getline(ss_update, num_str, ',')) {
+          current_line.push_back(std::stoi(num_str));
+        }
+
+        updates.push_back(current_line);
+      }
+    }
+    input.close();
+  } else {
+    std::cout << "Unable to open file" << std::endl;
+  }
+
+  return 0;
+}
