@@ -55,14 +55,5 @@ int main() {
     std::cout << (result ? "can" : "cannot") << " be formed.\n";
   }
 
-  for (const auto &line : lines) {
-
-    std::cout << "Target: " << line.first << ", Numbers: ";
-    for (int num : line.second) {
-      std::cout << num << " ";
-    }
-    std::cout << std::endl;
-  }
-
   return 0;
 }
