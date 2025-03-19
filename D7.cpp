@@ -10,9 +10,19 @@ bool contains(const std::vector<T> &vec, long long target) {
   return std::find(vec.begin(), vec.end(), target) != vec.end();
 }
 
+long long concatenate(long long a, long long b) {
+  long long q = b;
+  int i = 0;
+  while (q > 0) {
+    q = q / 10;
+    i++;
+  };
+  return ((a * (long long)pow(10, i)) + b);
+}
+
 bool evaluateExpression(const std::vector<int> &nums, long long target) {
   int N = nums.size();
-  size_t size = (1 << (N - 1));           // 2^(N-1) possible results
+  size_t size = pow(3, N - 1);            // 3^(N-1) possible results
   std::vector<long long> result(size, 0); // long long for large results
   result[0] = nums[0];
 
@@ -26,10 +36,14 @@ bool evaluateExpression(const std::vector<int> &nums, long long target) {
     for (int j = 0; j < nb; j++) {
       long long add_result = result[j] + next_num;
       long long mul_result = result[j] * next_num;
+      long long mul_result = result[j] * next_num;
 
       // Check for overflow
       if (add_result >= LLONG_MIN && add_result <= LLONG_MAX) {
         next_result.push_back(add_result);
+      }
+      if (mul_result >= LLONG_MIN && mul_result <= LLONG_MAX) {
+        next_result.push_back(mul_result);
       }
       if (mul_result >= LLONG_MIN && mul_result <= LLONG_MAX) {
         next_result.push_back(mul_result);
