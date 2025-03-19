@@ -33,10 +33,9 @@ bool evaluateExpression(const std::vector<int> &nums, int target) {
     previous_nb = nb;
     nb = std::pow(2, previous_nb - 1) + previous_nb;
   };
-  for (int i = 0; i < std::pow(2, N - 1) + 1; i++) {
-    std::cout << result[i] << std::endl;
-  }
-  std::cout << contains(result, target) << std::endl;
+  // for (int i = 0; i < std::pow(2, N - 1) + 1; i++) {
+  //   std::cout << result[i] << std::endl;
+  // }
   return contains(result, target);
 };
 
@@ -44,18 +43,23 @@ int main() {
   std::vector<std::pair<int, std::vector<int>>> lines;
   std::string path = "D7_input.txt"; // File path
   getStringLines(path, lines);
+  int sum = 0;
 
   for (const auto &line : lines) {
     int target = line.first;
 
     bool result = evaluateExpression(line.second, target);
-    std::cout << "Target " << target << " with numbers ";
+    /** std::cout << "Target " << target << " with numbers ";
     for (int num : line.second) {
       std::cout << num << " ";
     }
     std::cout << " " << std::endl;
     std::cout << (result ? "can" : "cannot") << " be formed.\n";
+    **/
+    if (result) {
+      sum += target;
+    }
   }
-
+  std::cout << sum << std::endl;
   return 0;
 }
