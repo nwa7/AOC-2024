@@ -82,8 +82,8 @@ int getStringLines(const std::string &path,
 }
 
 int getStringLines(const std::string &path,
-                   std::vector<std::pair<int, std::vector<int>>> &lines) {
-  std::ifstream input(path);
+                   std::vector<std::pair<long long, std::vector<int>>> &lines) {
+  std::ifstream input(path); // specifically for day 7
 
   if (!input.is_open()) {
     std::cerr << "Unable to open file: " << path << std::endl;
@@ -98,16 +98,12 @@ int getStringLines(const std::string &path,
     // Get the target nb before ':'
     std::getline(stream, target_str, ':');
 
-    int target;
+    long long target;
     try {
       // Try to convert target_str int
-      target = std::stoi(target_str);
+      target = std::stoll(target_str);
     } catch (const std::invalid_argument &e) {
       std::cerr << "Invalid target value (not a number): " << target_str
-                << " in line: " << line << std::endl;
-      continue;
-    } catch (const std::out_of_range &e) {
-      std::cerr << "Target value out of range: " << target_str
                 << " in line: " << line << std::endl;
       continue;
     }

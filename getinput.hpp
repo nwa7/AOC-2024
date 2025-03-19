@@ -12,7 +12,7 @@ int getStringLines(const std::string &path,
                    std::vector<std::vector<std::string>> &lines);
 
 int getStringLines(const std::string &path,
-                   std::vector<std::pair<int, std::vector<int>>> &lines);
+                   std::vector<std::pair<long long, std::vector<int>>> &lines);
 
 int getString(const std::string &path, std::string &lines);
 
