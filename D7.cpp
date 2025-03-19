@@ -36,7 +36,7 @@ bool evaluateExpression(const std::vector<int> &nums, long long target) {
     for (int j = 0; j < nb; j++) {
       long long add_result = result[j] + next_num;
       long long mul_result = result[j] * next_num;
-      long long mul_result = result[j] * next_num;
+      long long concat_result = concatenate(result[j], next_num);
 
       // Check for overflow
       if (add_result >= LLONG_MIN && add_result <= LLONG_MAX) {
@@ -45,8 +45,8 @@ bool evaluateExpression(const std::vector<int> &nums, long long target) {
       if (mul_result >= LLONG_MIN && mul_result <= LLONG_MAX) {
         next_result.push_back(mul_result);
       }
-      if (mul_result >= LLONG_MIN && mul_result <= LLONG_MAX) {
-        next_result.push_back(mul_result);
+      if (concat_result >= LLONG_MIN && concat_result <= LLONG_MAX) {
+        next_result.push_back(concat_result);
       }
     }
 
