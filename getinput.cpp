@@ -81,40 +81,49 @@ int getStringLines(const std::string &path,
   return 0;
 }
 
-int getStringLines(
-    const std::string &path,
-    std::vector<std::pair<int, std::vector<int>>> &lines) { // ex 7 special
+int getStringLines(const std::string &path,
+                   std::vector<std::pair<int, std::vector<int>>> &lines) {
   std::ifstream input(path);
 
-  if (input.is_open()) {
-    std::string line;
-    // Reading each line from the file
-    while (std::getline(input, line)) {
-      std::istringstream stream(line);
-      std::string target_str;
-
-      // Get the first number (target) before ':'
-      std::getline(stream, target_str, ':');
-      int target = std::stoi(target_str);
-
-      std::vector<int> numbers;
-      int num;
-
-      // Read remaining numbers after ':'
-      while (stream >> num) {
-        numbers.push_back(num);
-      }
-
-      // Store the target and the corresponding numbers in the vector
-      lines.push_back({target, numbers});
-    }
-    input.close();
-
-  } else {
-    std::cout << "Unable to open file";
+  if (!input.is_open()) {
+    std::cerr << "Unable to open file: " << path << std::endl;
+    return -1; // File could not be opened
   }
 
-  return 0;
+  std::string line;
+  while (std::getline(input, line)) {
+    std::istringstream stream(line);
+    std::string target_str;
+
+    // Get the target nb before ':'
+    std::getline(stream, target_str, ':');
+
+    int target;
+    try {
+      // Try to convert target_str int
+      target = std::stoi(target_str);
+    } catch (const std::invalid_argument &e) {
+      std::cerr << "Invalid target value (not a number): " << target_str
+                << " in line: " << line << std::endl;
+      continue;
+    } catch (const std::out_of_range &e) {
+      std::cerr << "Target value out of range: " << target_str
+                << " in line: " << line << std::endl;
+      continue;
+    }
+
+    std::vector<int> numbers;
+    int num;
+
+    // Read remaining numbers after ':'
+    while (stream >> num) {
+      numbers.push_back(num);
+    }
+    lines.push_back({target, numbers});
+  }
+
+  input.close();
+  return 0; // Success
 }
 
 int getString(const std::string &path, std::string &lines) {

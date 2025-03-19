@@ -11,31 +11,32 @@ bool contains(const std::vector<T> &vec, const T &target) {
 
 bool evaluateExpression(const std::vector<int> &nums, int target) {
   int N = nums.size();
-  size_t size = static_cast<size_t>(std::pow(2, N - 1));
-  std::vector<int> result;
+  size_t size = static_cast<size_t>(std::pow(2, N - 1) + 1);
+  std::vector<int> result(size, 0);
   result[0] = nums[0];
+  int previous_nb = 0;
   int nb = 1;
   for (size_t i = 1; i < nums.size(); ++i) {
-    int fill_vec = 0;
+    int fill_incr = 0;
     int next_num = nums[i];
     int add_result;
     int mul_result;
-    for (i = 0; i < nb; i++) {
-      add_result = result[i] + next_num;
-      mul_result = result[i] * next_num;
+    for (int j = previous_nb; j < nb; j++) {
+      add_result = result[j] + next_num;
+      mul_result = result[j] * next_num;
+
+      result[nb + fill_incr] = add_result;
+      fill_incr++;
+      result[nb + fill_incr] = mul_result;
+      fill_incr++;
     }
-    nb = 2 ^ nb;
-    if (add_result >= target) {
-      nb -= 1;
-    } else {
-      result[fill_vec] = add_result;
-    };
-    if (mul_result >= target) {
-      nb -= 1;
-    } else {
-      result[fill_vec] = mul_result;
-    };
+    previous_nb = nb;
+    nb = std::pow(2, previous_nb - 1) + previous_nb;
   };
+  for (int i = 0; i < std::pow(2, N - 1) + 1; i++) {
+    std::cout << result[i] << std::endl;
+  }
+  std::cout << contains(result, target) << std::endl;
   return contains(result, target);
 };
 
@@ -52,6 +53,7 @@ int main() {
     for (int num : line.second) {
       std::cout << num << " ";
     }
+    std::cout << " " << std::endl;
     std::cout << (result ? "can" : "cannot") << " be formed.\n";
   }
 
