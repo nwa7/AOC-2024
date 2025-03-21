@@ -7,10 +7,10 @@ int getColumns(const std::string &path, std::vector<int> &c1,
                std::vector<int> &c2);
 
 int getLines(const std::string &path, std::vector<std::vector<int>> &lines);
+int getLines(const std::string &path, std::vector<int> &line);
 
 int getStringLines(const std::string &path,
                    std::vector<std::vector<std::string>> &lines);
-
 int getStringLines(const std::string &path,
                    std::vector<std::pair<long long, std::vector<int>>> &lines);
 

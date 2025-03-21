@@ -56,6 +56,29 @@ int getLines(const std::string &path, std::vector<std::vector<int>> &lines) {
   return 0;
 }
 
+int getLines(const std::string &path, std::vector<int> &line) {
+  std::ifstream input(path);
+  std::string str_line;
+
+  if (input.is_open()) {
+    // Read the first line from the file
+    if (std::getline(input, str_line)) {
+      // Loop through each character in the line
+      for (char ch : str_line) {
+        if (std::isdigit(ch)) {
+          line.push_back(ch - '0');
+        }
+      }
+    }
+    input.close();
+  } else {
+    std::cout << "Unable to open file";
+    return -1;
+  }
+
+  return 0;
+}
+
 int getStringLines(const std::string &path,
                    std::vector<std::vector<std::string>> &lines) {
   std::ifstream input(path);
