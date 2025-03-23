@@ -19,22 +19,10 @@ int main() {
 
   for (int i = 0; i < blocks.size(); i++) {
     if (blocks[i] == -1) {
-      std::cout << "sum is " << sum << std::endl;
       return 0;
     }
-    std::cout << "sum += " << blocks[i] << " * " << i;
     sum += blocks[i] * i;
   }
-
-  for (int l = 0; l < blocks.size(); l++) {
-    if (blocks[l] == -1) {
-      std::cout << ".";
-    } else {
-      std::cout << blocks[l];
-    }
-  }
-  std::cout << " " << std::endl;
-
   return 0;
 }
 
