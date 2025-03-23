@@ -21,16 +21,19 @@ int main() {
 
 int get_blocks(std::vector<int> &lines, std::vector<int> &blocks) {
   int size = lines.size();
-  std::cout << size << std::endl;
-  for (int i = 0; i < size; i++) {
-    for (int j = 0; j < lines[2 * i]; j++) {
-      blocks.push_back(i);
+
+  for (int i = 0; i < size; i += 2) {
+    for (int j = 0; j < lines[i]; j++) {
+      blocks.push_back(i / 2);
     }
-    for (int k = 0; k < lines[2 * i + 1]; k++) {
-      blocks.push_back(-1);
+
+    if ((i + 1) < size) {
+      for (int k = 0; k < lines[i + 1]; k++) {
+        blocks.push_back(-1);
+      };
     };
   };
-  for (int l = 0; l < 50; l++) {
+  for (int l = 0; l < blocks.size(); l++) {
     if (blocks[l] == -1) {
       std::cout << ".";
     } else {
