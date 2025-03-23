@@ -14,7 +14,7 @@ int main() {
   std::string path = "D9_input.txt"; // File path
   getLines(path, lines);
   get_blocks(lines, blocks);
-  // compact_blocks(blocks);
+  compact_blocks(blocks);
 
   return 0;
 }
