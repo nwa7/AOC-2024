@@ -12,9 +12,28 @@ int main() {
   std::vector<int> lines;
   std::vector<int> blocks;
   std::string path = "D9_input.txt"; // File path
+  long long sum = 0;
   getLines(path, lines);
   get_blocks(lines, blocks);
   compact_blocks(blocks);
+
+  for (int i = 0; i < blocks.size(); i++) {
+    if (blocks[i] == -1) {
+      std::cout << "sum is " << sum << std::endl;
+      return 0;
+    }
+    std::cout << "sum += " << blocks[i] << " * " << i;
+    sum += blocks[i] * i;
+  }
+
+  for (int l = 0; l < blocks.size(); l++) {
+    if (blocks[l] == -1) {
+      std::cout << ".";
+    } else {
+      std::cout << blocks[l];
+    }
+  }
+  std::cout << " " << std::endl;
 
   return 0;
 }
@@ -33,32 +52,24 @@ int get_blocks(std::vector<int> &lines, std::vector<int> &blocks) {
       };
     };
   };
-  for (int l = 0; l < blocks.size(); l++) {
-    if (blocks[l] == -1) {
-      std::cout << ".";
-    } else {
-      std::cout << blocks[l];
-    }
-  }
+
   return 0;
 };
 
 int compact_blocks(std::vector<int> &blocks) {
   int block_size = blocks.size();
+
+  // std::cout << block_size << std::endl;
   for (int i = 0; i < block_size; i++) {
     if (blocks[i] == -1) {
-      int replacement = blocks[block_size];
-      int count = 1;
-      while (replacement == -1 || block_size - count != i) {
-        count++;
-        replacement = blocks[block_size - count];
-      }
-      std::swap(blocks[i], blocks[block_size - count]);
-    }
-    for (int j = 0; j < block_size; j++) {
-      std::cout << blocks[i];
+
+      for (int j = (block_size - 1); j >= i; j--) {
+        if (blocks[j] != -1) {
+          std::swap(blocks[i], blocks[j]);
+          break;
+        }
+      };
     };
-    std::cout << " " << std::endl;
-  };
+  }
   return 0;
-};
+}
